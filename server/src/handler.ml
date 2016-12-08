@@ -35,7 +35,10 @@ module Make
     let hdr = "HTTP" in
     let callback (_, conn_id) request _body =
       let uri = Cohttp.Request.uri request in
-      respond_ok ( Lwt.return "hello world" )
+      let headers = Cohttp.Request.headers request in
+      let httpMethod = Cohttp.Request.meth request in
+      respond_ok ( Dispatcher.dispatch request )
+      (*respond_ok ( Lwt.return ( "hello world " ^ ( Uri.to_string uri ) ^ ( Cohttp.Code.string_of_method httpMethod ) ) ) *)
     in
     let conn_closed (_,conn_id) =
       let cid = Cohttp.Connection.to_string conn_id in

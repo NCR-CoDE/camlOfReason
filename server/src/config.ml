@@ -17,7 +17,7 @@ let stack = generic_stackv4 default_console tap0
 
 let keys = Key.([ abstract http_port ])
 let http =
-  foreign ~keys "Dispatch.Make"
+  foreign ~keys "Handler.Make"
     (http @-> kv_ro @-> kv_ro @-> clock @-> job)
 
 let dispatch =
