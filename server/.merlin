@@ -1,0 +1,5 @@
+PKG cohttp lwt mirage mirage-unix mirage-http mirage-fs-unix
+PKG mirage-net-unix mirage-clock-unix mirage-console.unix
+
+B src/_build/**
+S src/
