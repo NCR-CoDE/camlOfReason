@@ -26,7 +26,61 @@
 
 # Why
 
-This technology stack allows us to create very lightweight full applications. Ocaml is a robust and fast programming language. All these combined with the small size of the unikernel and the fact that we do not need an intermediate operating system (as we would in case of a docker container) allows us to deploy unikernels a lot faster.
+This technology stack allows us to create very lightweight full applications. Ocaml is a robust and fast programming language.
+All these combined with the small size of the unikernel and the fact that we do not need an intermediate operating system (as we would in case of a docker container) allows us to deploy unikernels a lot faster.
 
 
 # Implementation details
+
+## Client side
+
+A reason app
+
+## Server side
+
+An ocaml server side app based on Mirage. It contains its own web server that accepts connections on an endpoint and responds with a json file, that is going to be consumed by the Reason client.
+
+The architecture of it is:
+```
+Mirage ->
+ config.ml ->
+  handler ->
+   dispatcher ->
+    endpoint1 ->
+     counter
+```     
+
+## Deployment system
+
+The deployment system we are using is one of the [official vagrant](https://github.com/mirage/mirage-vagrant-vms) based systems released by the mirage project. It is semi automated (meaning that some of the automated parts do not work), based on:
+
+* Ubuntu 14.04
+* Xen 4.4
+* Ocaml 4.02.3
+* Reason 1.19.3
+* Mirage 2.9.1
+
+
+# Results
+
+## Client side
+
+## Server side
+
+A mirage project can be compiled in a variety of ways. We have
+* unix native
+  * socket based networking (--net sock)
+  * direct networking without dhcp (--dhcp false --net direct)
+  * direct networking with dhcp (--dhcp true --net direct)
+* xen
+  * direct networking with dhcp (--dhcp true --net direct)
+
+During development unix native with socked based networking is used. Any ocaml networking library will work, but we will be restricted to unix native mode with socket based networking.
+If we want to use the xen networking backend, then we need to use the STACK_V4 (or STACK_V6) module, that provides xen with a tcp/ip stack.
+
+
+## Deployment system
+
+The vagrant files released by mirage project, does not work very well. The converge fails, during vagrant up, but if we execute the scripts manually, eventually we get a system that has all the components.
+
+Some manual steps are required to configure Xen bridge interface for networking.
