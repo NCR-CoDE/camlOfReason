@@ -79,6 +79,32 @@ During development unix native with socked based networking is used. Any ocaml n
 
 If we want to use the xen networking backend, then we need to use the STACK_V4 (or STACK_V6) module, that provides xen with a tcp/ip stack. Anything else will fail to retrieve an IP, although it may be compiled and imported to Xen succesfully.
 
+In order to build the project we use mirage to create the configuration files and then make:
+
+```bash
+mirage configure -t unix --kv_ro crunch --net socket
+make
+```
+```bash
+mirage configure -t unix --kv_ro crunch --dhcp false --net direct
+make
+```
+
+```bash
+mirage configure -t xen --kv_ro crunch --dhcp false --net direct
+make
+```
+
+
+```bash
+mirage configure -t xen --kv_ro crunch --dhcp true --net direct
+make
+```
+
+After compilation then execution with
+```bash
+./mir-www
+```
 
 ## Deployment system
 
