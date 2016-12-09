@@ -29,6 +29,29 @@
 This technology stack allows us to create very lightweight full applications. Ocaml is a robust and fast programming language.
 All these combined with the small size of the unikernel and the fact that we do not need an intermediate operating system (as we would in case of a docker container) allows us to deploy unikernels a lot faster.
 
+# Results
+
+## Client side
+
+## Server side
+
+A mirage project can be compiled in a variety of ways. We have
+* unix native
+  * socket based networking (--net sock)
+  * direct networking without dhcp (--dhcp false --net direct)
+  * direct networking with dhcp (--dhcp true --net direct)
+* xen
+  * direct networking with dhcp (--dhcp true --net direct)
+
+During development unix native with socked based networking is used. Any ocaml networking library will work, but we will be restricted to unix native mode with socket based networking.
+
+If we want to use the xen networking backend, then we need to use the STACK_V4 (or STACK_V6) module, that provides xen with a tcp/ip stack. Anything else will fail to retrieve an IP, although it may be compiled and imported to Xen succesfully.
+
+
+## Deployment system
+
+The vagrant files released by mirage project, does not work very well. The converge fails, during vagrant up, but if we execute the scripts manually, eventually we get a system that has all the components.
+
 
 # Implementation details
 
@@ -106,25 +129,3 @@ vagrant@trustytahr-xen:~$
 ```
 This defines a xen bridged network interface on the eth1 interface of the virtual vm. During initialization the xenbr0 interface needs to be initialized before the eth1 interface.
 
-# Results
-
-## Client side
-
-## Server side
-
-A mirage project can be compiled in a variety of ways. We have
-* unix native
-  * socket based networking (--net sock)
-  * direct networking without dhcp (--dhcp false --net direct)
-  * direct networking with dhcp (--dhcp true --net direct)
-* xen
-  * direct networking with dhcp (--dhcp true --net direct)
-
-During development unix native with socked based networking is used. Any ocaml networking library will work, but we will be restricted to unix native mode with socket based networking.
-
-If we want to use the xen networking backend, then we need to use the STACK_V4 (or STACK_V6) module, that provides xen with a tcp/ip stack. Anything else will fail to retrieve an IP, although it may be compiled and imported to Xen succesfully.
-
-
-## Deployment system
-
-The vagrant files released by mirage project, does not work very well. The converge fails, during vagrant up, but if we execute the scripts manually, eventually we get a system that has all the components.
