@@ -34,7 +34,7 @@ module Make
   let create () =
     let hdr = "HTTP" in
     let callback (_, conn_id) request _body =
-      respond_ok ( Dispatcher.dispatch request )
+      respond_ok ~headers:[("Content-Type", "application-json")] ( Dispatcher.dispatch request )
       (*respond_ok ( Lwt.return ( "hello world " ^ ( Uri.to_string uri ) ^ ( Cohttp.Code.string_of_method httpMethod ) ) ) *)
     in
     let conn_closed (_,conn_id) =
