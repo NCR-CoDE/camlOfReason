@@ -104,6 +104,7 @@ iface eth0 inet dhcp
 iface eth1 inet manual
 vagrant@trustytahr-xen:~$
 ```
+This defines a xen bridged network interface on the eth1 interface of the virtual vm. During initialization the xenbr0 interface needs to be initialized before the eth1 interface.
 
 # Results
 
@@ -127,7 +128,3 @@ If we want to use the xen networking backend, then we need to use the STACK_V4 (
 ## Deployment system
 
 The vagrant files released by mirage project, does not work very well. The converge fails, during vagrant up, but if we execute the scripts manually, eventually we get a system that has all the components.
-
-
-
-This defines a xen bridged network interface on the eth1 interface of the virtual vm. During initialization the xenbr0 interface needs to be initialized before the eth1 interface.
