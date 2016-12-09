@@ -9,7 +9,7 @@ end
 module Make
     (C: CONTROLLER)
 = struct
-  let handle_resource req httpMethod =
+  let handle_request req httpMethod =
     let response =
       match httpMethod with
       | `GET -> C.handle_get req

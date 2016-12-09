@@ -9,5 +9,5 @@ end
 
 module Make
     (C : CONTROLLER) : sig
-  val handle_resource : Cohttp.Request.t -> [> `DELETE | `GET | `POST | `PUT ] -> string Lwt.t
+  val handle_request : Cohttp.Request.t -> [> `DELETE | `GET | `POST | `PUT ] -> string Lwt.t
 end

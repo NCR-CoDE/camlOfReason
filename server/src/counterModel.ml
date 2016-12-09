@@ -16,6 +16,9 @@ let add_counter addition counter =
 let set_counter new_value counter =
   new_value
 
+let construct_string_response counter =
+  string_of_int ( get_counter counter )
+
 let construct_json_response counter =
   (*let counter : Yojson.Basic.json = `Int ( get_counter () ) in *)
   Yojson.Basic.pretty_to_string ( `Assoc [ ( "counter", `Int ( get_counter counter ) ) ] )
