@@ -2,36 +2,25 @@ open Yojson.Basic
 
 module CounterController = Controller.Make ( struct
 
-    let my_counter = ref 0
+  let construct_json_response () =
+    (*let counter : Yojson.Basic.json = `Int ( get_counter () ) in *)
+    Yojson.Basic.pretty_to_string ( `Assoc [ ( "counter", `Int ( CounterModel.get_counter () ) ) ] )
 
-    let get_counter () =
-        !my_counter
-
-    let increment_counter () =
-        incr my_counter
-
-    type get_json_response = {
-      name: string;
-      counter: int
-    }
-
-    let construct_json_response () =
-      (*let counter : Yojson.Basic.json = `Int ( get_counter () ) in *)
-      `Assoc [ ( "counter", `Int ( get_counter () ) ) ]
-
-    let handle_get req =
-      increment_counter () ;
-      let json = construct_json_response () in
-      Yojson.Basic.pretty_to_string json
+  let handle_get req =
+    CounterModel.increment_counter () ;
+    construct_json_response ()
 
   let handle_post req =
-    "hello resource using post"
+    CounterModel.increment_counter () ;
+    construct_json_response ()
 
   let handle_put req =
-    "hello resource using put"
+    CounterModel.set_counter 4 ;
+    construct_json_response ()
 
   let handle_delete req =
-    "hello resource using delete"
+    CounterModel.set_counter 0 ;
+    construct_json_response ()
 
 end
 )
