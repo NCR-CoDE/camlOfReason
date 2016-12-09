@@ -76,7 +76,8 @@ A mirage project can be compiled in a variety of ways. We have
   * direct networking with dhcp (--dhcp true --net direct)
 
 During development unix native with socked based networking is used. Any ocaml networking library will work, but we will be restricted to unix native mode with socket based networking.
-If we want to use the xen networking backend, then we need to use the STACK_V4 (or STACK_V6) module, that provides xen with a tcp/ip stack.
+
+If we want to use the xen networking backend, then we need to use the STACK_V4 (or STACK_V6) module, that provides xen with a tcp/ip stack. Anything else will fail to retrieve an IP, although it may be compiled and imported to Xen succesfully.
 
 
 ## Deployment system
