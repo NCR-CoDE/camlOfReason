@@ -31,9 +31,12 @@ module Make
     let headers = Cohttp.Header.of_list headers in
     S.respond_string ~headers ~status ~body ()
 
+  (* hard setting content type to json below*)
   let create () =
     let hdr = "HTTP" in
     let callback (_, conn_id) request _body =
+      let cid = Cohttp.Connection.to_string conn_id in
+      Log.debug (fun f -> f "[%s %s] OK, closing" hdr cid);
       respond_ok ~headers:[("Content-Type", "application-json")] ( Dispatcher.dispatch request )
       (*respond_ok ( Lwt.return ( "hello world " ^ ( Uri.to_string uri ) ^ ( Cohttp.Code.string_of_method httpMethod ) ) ) *)
     in

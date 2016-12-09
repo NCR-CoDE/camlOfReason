@@ -1,26 +1,22 @@
-open Yojson.Basic
-
 module CounterController = Controller.Make ( struct
 
-  let construct_json_response () =
-    (*let counter : Yojson.Basic.json = `Int ( get_counter () ) in *)
-    Yojson.Basic.pretty_to_string ( `Assoc [ ( "counter", `Int ( CounterModel.get_counter () ) ) ] )
+  let counter = ref ( CounterModel.create () )
 
   let handle_get req =
-    CounterModel.increment_counter () ;
-    construct_json_response ()
+    counter := CounterModel.increment_counter !counter;
+    CounterModel.construct_json_response !counter
 
   let handle_post req =
-    CounterModel.increment_counter () ;
-    construct_json_response ()
+    counter := CounterModel.add_counter 4 !counter;
+    CounterModel.construct_json_response !counter
 
   let handle_put req =
-    CounterModel.set_counter 4 ;
-    construct_json_response ()
+    counter := CounterModel.set_counter 4 !counter;
+    CounterModel.construct_json_response !counter
 
   let handle_delete req =
-    CounterModel.set_counter 0 ;
-    construct_json_response ()
+    counter := CounterModel.set_counter 0 !counter;
+    CounterModel.construct_json_response !counter
 
 end
 )

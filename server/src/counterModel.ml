@@ -1,15 +1,21 @@
 (* this represents some persistence layer *)
 
-let my_counter = ref 0
+type counter = int
 
-let get_counter () =
-    !my_counter
+let create () = 0
 
-let increment_counter () =
-    incr my_counter
+let get_counter counter =
+  counter
 
-let add_counter addition =
-  my_counter := !my_counter + addition
+let increment_counter counter =
+  succ counter
 
-let set_counter new_value =
-  my_counter := new_value
+let add_counter addition counter =
+  counter + addition
+
+let set_counter new_value counter =
+  new_value
+
+let construct_json_response counter =
+  (*let counter : Yojson.Basic.json = `Int ( get_counter () ) in *)
+  Yojson.Basic.pretty_to_string ( `Assoc [ ( "counter", `Int ( get_counter counter ) ) ] )

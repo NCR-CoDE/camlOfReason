@@ -9,7 +9,6 @@ end
 module Make
     (C: CONTROLLER)
 = struct
-
   let handle_resource req httpMethod =
     let response =
       match httpMethod with

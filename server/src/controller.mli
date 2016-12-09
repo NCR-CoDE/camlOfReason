@@ -1,9 +1,9 @@
 module type CONTROLLER =
 sig
-  val handle_get : Cohttp.Request.t -> string
-  val handle_post : Cohttp.Request.t -> string
-  val handle_put : Cohttp.Request.t -> string
-  val handle_delete : Cohttp.Request.t -> string
+val handle_get : Cohttp.Request.t -> string
+val handle_post : Cohttp.Request.t -> string
+val handle_put : Cohttp.Request.t -> string
+val handle_delete : Cohttp.Request.t -> string
 end
 
 
