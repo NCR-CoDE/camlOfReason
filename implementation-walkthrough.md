@@ -77,7 +77,7 @@ After compilation then execution with
 ```bash
 ./mir-www
 ```
-  
+
 
 ## Deployment system
 
@@ -89,6 +89,21 @@ The deployment system we are using is one of the [official vagrant](https://gith
 * Reason 1.19.3
 * Mirage 2.9.1
 
+
+Some manual steps are required to configure Xen bridge interface for networking.
+
+The network interfaces configuration is the following:
+
+```bash
+vagrant@trustytahr-xen:~$ cat /etc/network/interfaces
+auto lo eth0 eth1 xenbr0
+iface lo inet loopback
+iface xenbr0 inet dhcp
+ bridge_ports eth1
+iface eth0 inet dhcp
+iface eth1 inet manual
+vagrant@trustytahr-xen:~$
+```
 
 # Results
 
@@ -113,4 +128,6 @@ If we want to use the xen networking backend, then we need to use the STACK_V4 (
 
 The vagrant files released by mirage project, does not work very well. The converge fails, during vagrant up, but if we execute the scripts manually, eventually we get a system that has all the components.
 
-Some manual steps are required to configure Xen bridge interface for networking.
+
+
+This defines a xen bridged network interface on the eth1 interface of the virtual vm. During initialization the xenbr0 interface needs to be initialized before the eth1 interface.
