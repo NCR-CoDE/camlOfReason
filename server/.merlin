@@ -1,4 +1,4 @@
-PKG cohttp lwt mirage mirage-unix mirage-http mirage-fs-unix
+PKG cohttp lwt mirage mirage-unix mirage-http mirage-fs-unix yojson
 PKG mirage-net-unix mirage-clock-unix mirage-console.unix
 
 B src/_build/**

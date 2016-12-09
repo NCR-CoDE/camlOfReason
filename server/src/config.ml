@@ -24,8 +24,8 @@ let dispatch =
     (** Without tls *)
     (http $ http_server (conduit_direct stack))
 
-let libraries = [ "rrd" ]
-let packages  = [ "xapi-rrd" ]
+let libraries = [ "rrd"; "yojson" ]
+let packages  = [ "xapi-rrd" ; "yojson" ]
 
 let fs_key = Key.(value @@ kv_ro ())
 let filesfs = generic_kv_ro ~key:fs_key "../files"
